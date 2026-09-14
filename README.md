@@ -9,8 +9,8 @@
 ## Paso 0 — Preparar el entorno
 
 1. Vayan a [colab.research.google.com](https://colab.research.google.com) → "Nuevo cuaderno"
-2. Renombren el cuaderno (clic en el nombre arriba a la izquierda): `CIA6041\_NominaInteligente\_ETL\_EDA`
-3. En el panel izquierdo, ícono de carpeta → botón de subir → suban `WA\_Fn-UseC\_-HR-Employee-Attrition.csv` desde su computadora
+2. Renombren el cuaderno (clic en el nombre arriba a la izquierda): `NominaInteligente_ETL_EDA`
+3. En el panel izquierdo, ícono de carpeta → botón de subir → subir `WA_Fn-UseC_-HR-Employee-Attrition.csv` desde su computadora
 
 \---
 
@@ -21,7 +21,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-df = pd.read\_csv("WA\_Fn-UseC\_-HR-Employee-Attrition.csv")
+df = pd.read\_csv("WA_Fn-UseC_-HR-Employee-Attrition.csv")
 
 print("Filas:", df.shape\[0], "| Columnas:", df.shape\[1])
 df.head()
@@ -120,7 +120,7 @@ df\_limpio\["Grupo de antigüedad"] = df\_limpio\["YearsAtCompany"].apply(grupo\
 df\_limpio\[\["MonthlyIncome", "Banda salarial", "YearsAtCompany", "Grupo de antigüedad"]].head(8)
 ```
 
-**Qué hace:** `def banda\_salarial(ingreso):` crea una función — una especie de mini-fórmula reutilizable — que recibe un número y devuelve una categoría de texto según las reglas escritas con `if/elif/else` (las mismas 3 categorías y cortes que usaron en Power Query). `.apply(banda\_salarial)` aplica esa función a cada una de las 1,470 filas de la columna `MonthlyIncome`, generando una columna nueva. Se repite la misma lógica para la antigüedad. La última línea solo muestra 8 filas de ejemplo para confirmar que las categorías quedaron bien asignadas.
+**Qué hace:** `def banda\_salarial(ingreso):` crea una función — una especie de mini-fórmula reutilizable — que recibe un número y devuelve una categoría de texto según las reglas escritas con `if/elif/else`. `.apply(banda\_salarial)` aplica esa función a cada una de las 1,470 filas de la columna `MonthlyIncome`, generando una columna nueva. Se repite la misma lógica para la antigüedad. La última línea solo muestra 8 filas de ejemplo para confirmar que las categorías quedaron bien asignadas.
 
 **Resultado esperado:** tabla de 8 filas con las categorías asignadas correctamente.
 
@@ -166,7 +166,7 @@ print(f"Empleados que renunciaron:  {empleados\_que\_renunciaron}")
 
 **Qué hace:** `.sum()` y `.mean()` sobre `MonthlyIncome` dan el total y el promedio de salario de los 1,470 empleados. `(df\_limpio\["Attrition"] == "Yes")` crea una lista de True/False (True donde el empleado renunció); `.mean()` sobre esa lista da directamente el porcentaje de "True" (la tasa de rotación), y `.sum()` cuenta cuántos "True" hay en total (el número de renuncias). Las líneas `print(f"...")` solo dan formato de texto legible a esos 4 números.
 
-**Resultado esperado (debe coincidir con las tarjetas de Power BI):**
+**Resultado esperado:**
 
 ```
 Costo total de nómina:      $9,559,309.00
@@ -279,10 +279,6 @@ print(candidatos\_por\_depto)
 
 **Qué hace:** mismo tipo de gráfico de barras que los anteriores, esta vez con la columna `Proporción` de la tabla recién calculada.
 
-> ⚠️ \*\*Importante:\*\* corran esta celda y miren qué departamento sale con la proporción más alta ANTES de dejar el título fijo. Ajusten el nombre del departamento en `ax.set\_title(...)` según lo que muestren sus propios datos — no copien "Ventas" sin verificarlo, cada quien debe confirmar su propio resultado.
-
-\---
-
 ## Paso 8 — Verificar y exportar
 
 **Celda 8a:**
@@ -334,8 +330,6 @@ Deberían ver 35 columnas, incluyendo `Banda salarial`, `Grupo de antigüedad` y
 
 * **`KeyError` en el gráfico de promoción:** revisen que estén usando el nombre de columna correcto — si renombraron `candidatos\_por\_depto.columns = \["Cantidad", "Proporción"]`, deben usar `candidatos\_por\_depto\["Proporción"]`, no `\["mean"]`.
 * **El notebook no encuentra el CSV:** confirmen que subieron `WA\_Fn-UseC\_-HR-Employee-Attrition.csv` en el Paso 0, y que el nombre está escrito exactamente igual (mayúsculas y guiones incluidos).
-* **Los números del Paso 6 no coinciden con Power BI:** revisen que estén usando `df\_limpio` (no `df`) en todas las celdas desde el Paso 4 en adelante.
-
 \---
 
 ## Nota sobre modelaje
