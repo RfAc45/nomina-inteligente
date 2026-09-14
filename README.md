@@ -2,7 +2,7 @@
 
 ### Caso: Nómina Inteligente 
 
-### Nombre del archivo: `CIA6041\_NominaInteligente\_ETL\_EDA.ipynb`
+### Nombre del archivo: `CIA6041_NominaInteligente_ETL_EDAb.ipynb`
 
 \---
 
